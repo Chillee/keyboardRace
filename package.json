@@ -1,0 +1,19 @@
+{
+  "name": "keyboardrace",
+  "version": "1.0.0",
+  "description": "A typing racing site.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chillee/keyboardRace.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chillee/keyboardRace/issues"
+  },
+  "homepage": "https://github.com/Chillee/keyboardRace#readme"
+}
