@@ -14,3 +14,15 @@ var server = app.listen(3000, function () {
 });
 
 var listener = io.listen(server);
+
+listener.sockets.on('connection', function(socket){
+    console.log('connected');
+    socket.on('opponent:typePos', function(data){
+        socket.broadcast.emit('opponent:typePos', data);
+    })
+    socket.on('disconnect', function(){
+        console.log('disconnected');
+    })
+
+})
+
