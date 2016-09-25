@@ -1,3 +1,23 @@
+
+
+
+<html>
+<head>
+
+<!-- Start Metdata definitions -->
+<title> Keyboard Race </title>
+<!-- End Metadata definitions -->
+
+<!-- Start Custom CSS loading -->
+<link rel="stylesheet" href="css/customcss.css">
+
+<!-- End Custom CSS loading -->
+
+<!-- Start API includes -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" integrity="sha384-THPy051/pYDQGanwU6poAc/hOdQxjnOEXzbT+OuUAFqNqFjL+4IGLBgCJC3ZOShY" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.2.0/js/tether.min.js" integrity="sha384-Plbmg8JY28KFelvJVai01l8WyZzrYWG825m+cZ0eDDS1f7d/js6ikvy1+X+guPIB" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/js/bootstrap.min.js" integrity="sha384-VjEeINv9OSwtWFLAtmc4JCtEJXXBub00gtSnszmspDLCtC0I4z4nqz7rEFbIZLLU" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.0/react.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.0/react-dom.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
@@ -5,123 +25,55 @@
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/3.6.0/redux.min.js"></script>
 
-<script type="text/babel">
-  var defaultState = {
-    components:{
-      typingGame: {
-        typingText: "Horace is amazing Horace is amazing Horace is amazing",
-        userPos: 0,
-        opponentsPos: 0
-      }
-    }
-  }
-  function updateUserPos(index){
-    return {
-      type: 'UPDATE_USER_POS',
-      userPos: index
-    }
-  }
+<script type="text/babel" src="typeGame.js"></script>
+<!-- End API includes -->
 
-  function updateOpponentsPos(index){
-    return {
-      type: 'UPDATE_OPPONENTS_POS',
-      opponentsPos: index
-    }
-  }
-  function TypeGame(state, action){
-    switch (action.type) {
-      case 'UPDATE_USER_POS':
-        var newState = Object.assign({}, state);
-        newState.components.typingGame.userPos = action.userPos;
-        return newState;
-      case 'UPDATE_OPPONENTS_POS':
-        var newState = Object.assign({}, state);
-        newState.components.typingGame.opponentsPos = action.opponentsPos;
-        return newState;
-      default:
-        return state;
-    }
-  }
-  var store=Redux.createStore(TypeGame,defaultState);
-  var socket = io();
+</head>
+<body style="background-color:#DDDDDD">
+<div class="container-fluid">
 
-  var TextTypingGame = React.createClass({
-    getInitialState: function(){
-      return {
-        typingText: this.props.text
-      }
-    },
-    componentWillMount: function(){
-      store.subscribe(()=>{
-        this.setState({});
-      });
-    },
-    putPositionOfUser: function(){
-      var curUserPos = store.getState().components.typingGame.userPos;
-      var curOpponentPos = store.getState().components.typingGame.opponentsPos;
-      console.log(store.getState().components.typingGame);
-      var curText = this.state.typingText;
-      String.prototype.replaceAt=function(index, character) {
-        return this.substr(0, index) + character + this.substr(index+character.length);
-      }
-      curText = curText.replaceAt(curUserPos, "|");
-      curText = curText.replaceAt(curOpponentPos, "+");
-      return curText;
-    },
-    render: function(){
-      var finalText = this.putPositionOfUser();
-      console.log(finalText);
-      return (<div>{finalText}</div>);
-    }
-  });
+ 	<!-- Start Menu Bar -->
+	<div class="masthead">
+		<h3 class="text-muted">Keyboard Race</h3>
+		<nav class="navbar navbar-dark bg-inverse">
+		  <div class="nav navbar-nav">
+		    <a class="nav-item nav-link active" href="index.html">Home<span class="sr-only">(current)</span></a>
+		    <a class="nav-item nav-link" href="about.html">About</a>
+		  </div>
+		</nav>
+	</div>
+	<br>
+	<!-- End Menu Bar -->
 
-  var InputTypingGame = React.createClass({
-    getInitialState: function(){
-      return {
-        typingText: this.props.text,
-      }
-    },
-    // componentWillMount: function(){
-    //   store.subscribe(()=>{
-    //     var state = store.getState();
-    //     this.setState({
-    //       currentUserPos: state.components.typingGame.userPos
-    //     });
-    //   });
-    // },
-    keyPress: function(event){
-      var curTypingText = this.state.typingText;
-      var curTypingPos = store.getState().components.typingGame.userPos;
-      if (String.fromCharCode(event.which)===curTypingText[curTypingPos]){
-        store.dispatch(updateUserPos(curTypingPos+1));
-        socket.emit("opponent:typePos", {opponentsPos: curTypingPos+1});
-      }
-      if (String.fromCharCode(event.which)===" "){
-        event.target.value=""; 
-      }
-    },
-    render: function(){
-      return (<div>
-                <input id="bruh" onKeyPress={this.keyPress} />
-              </div>);
-    }
-  });
+	<!-- Start Main Content Portion -->
+	<div class="row">
+		<div class="col-sm-6">
+			<h3> Choose your Game Mode: </h3>
+			<div class="list-group">
+		  	<button type="button" class="list-group-item list-group-item-action">
+		  		<span class="tag tag-default tag-pill pull-xs-right">53,256 online now</span>Group Race!
+		  	</button>
+		  	<button type="button" class="list-group-item list-group-item-action">Typing Speed Test</button>
+			<button type="button" class="list-group-item list-group-item-action">1 vs. 1</button>
+			<button type="button" class="list-group-item list-group-item-action">Play your friends</button>
+			</div>
+		</div>
+	</div>
 
-  var TypingGame = React.createClass({
-    componentWillMount: function(){
-      socket.on('opponent:typePos', this._updateOpponentsPos);
-    },
-    _updateOpponentsPos: function(data){
-      store.dispatch(updateOpponentsPos(data.opponentsPos));
-    },
-    render: function(){
-      var text="horace is amazing horace is amazing horace is amazing horace is amazing";
-      return (<div><TextTypingGame text={text}/><InputTypingGame text={text}/></div>); 
-    }
-  });
-  ReactDOM.render(<TypingGame/>, document.getElementById('typingbox'));
+	<hr>
 
-</script>
-<body>
-<div id="typingbox"></div>
+	<h3> Competitive Interactive Type Race below: </h3>
+
+	<form>
+	  <div class="form-group">
+	    <label for="exampleTextarea">Collaborative Typing: </label>
+	    <textarea class="form-control" id="exampleTextarea" rows="30"></textarea>
+    <div id="typingbox"></div>
+	  </div>
+	</form>
+
+	<!-- End Main Content Portion -->
+</div>
 </body>
+
+</html>
