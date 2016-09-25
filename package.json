@@ -6,6 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "socket.io": "latest",
+    "express": "latest"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chillee/keyboardRace.git"
