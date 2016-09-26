@@ -149,7 +149,7 @@ var defaultState = {
       store.dispatch(updateOpponentsPos(data.opponentsPos));
     },
     render: function(){
-      var text="horace is amazing horace is amazing horace is amazing horace is amazing";
+      var text="isay is dank isay is dank isay is dank isay is dank";
       return (<div><TextTypingGame text={text}/><InputTypingGame text={text}/></div>); 
     }
   });
