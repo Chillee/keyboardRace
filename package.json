@@ -7,10 +7,17 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
     "express": "latest",
     "path": "^0.12.7",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
     "request": "^2.75.0",
-    "socket.io": "^1.4.8"
+    "socket.io": "^1.4.8",
+    "webpack": "^1.13.2"
   },
   "repository": {
     "type": "git",
@@ -21,5 +28,8 @@
   "bugs": {
     "url": "https://github.com/Chillee/keyboardRace/issues"
   },
-  "homepage": "https://github.com/Chillee/keyboardRace#readme"
+  "homepage": "https://github.com/Chillee/keyboardRace#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.14.0"
+  }
 }

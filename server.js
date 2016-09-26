@@ -2,6 +2,7 @@ var express = require('express');
 var path    = require('path');
 var request = require('request');
 var io      = require('socket.io');
+// import react from 'react';
 
 var app = express();
 app.use(express.static(__dirname + '/public'));
@@ -20,10 +21,10 @@ listener.sockets.on('connection', function(socket){
     console.log('connected');
     socket.on('opponent:typePos', function(data){
         socket.broadcast.emit('opponent:typePos', data);
-    })
+    });
     socket.on('disconnect', function(){
         console.log('disconnected');
-    })
+    });
 
 })
 
