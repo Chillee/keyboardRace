@@ -1,7 +1,7 @@
 var defaultState = {
     components:{
       typingGame: {
-        typingText: "Horace is amazing Horace is amazing Horace is amazing",
+        typingText: "Isay is dank isay is dank isay is dank isay is dank",
         userPos: 0,
         opponentsPos: 0
       }
@@ -75,7 +75,7 @@ var defaultState = {
       var curText = this.state.typingText;
       var min = Math.min(curUserPos, curOpponentPos);
       var max = Math.max(curUserPos, curOpponentPos);
-      return curText.substr(min,max);
+      return curText.substr(min,max-min);
     },
     getThirdPart: function(){
       var curUserPos = store.getState().components.typingGame.userPos;
