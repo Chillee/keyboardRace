@@ -54,16 +54,57 @@ var defaultState = {
       console.log(store.getState().components.typingGame);
       var curText = this.state.typingText;
       String.prototype.replaceAt=function(index, character) {
-        return this.substr(0, index) + character + this.substr(index+character.length);
+        return this.substr(0, index) +  character + this.substr(index+character.length-1);
       }
       curText = curText.replaceAt(curUserPos, "|");
       curText = curText.replaceAt(curOpponentPos, "+");
       return curText;
     },
+    getFirstPart: function(){
+      var curUserPos = store.getState().components.typingGame.userPos;
+      var curOpponentPos = store.getState().components.typingGame.opponentsPos;
+      console.log(store.getState().components.typingGame);
+      var curText = this.state.typingText;
+      var min = Math.min(curUserPos, curOpponentPos);
+      return curText.substr(0, min);
+    },
+    getSecondPart: function(){
+      var curUserPos = store.getState().components.typingGame.userPos;
+      var curOpponentPos = store.getState().components.typingGame.opponentsPos;
+      console.log(store.getState().components.typingGame);
+      var curText = this.state.typingText;
+      var min = Math.min(curUserPos, curOpponentPos);
+      var max = Math.max(curUserPos, curOpponentPos);
+      return curText.substr(min,max);
+    },
+    getThirdPart: function(){
+      var curUserPos = store.getState().components.typingGame.userPos;
+      var curOpponentPos = store.getState().components.typingGame.opponentsPos;
+      console.log(store.getState().components.typingGame);
+      var curText = this.state.typingText;
+      var max = Math.max(curUserPos, curOpponentPos);
+      return curText.substr(max);
+    },
     render: function(){
-      var finalText = this.putPositionOfUser();
-      console.log(finalText);
-      return (<div>{finalText}</div>);
+      var firstpart = this.getFirstPart();
+      var secondpart = this.getSecondPart();
+      var thirdpart = this.getThirdPart();
+      console.log(firstpart);
+      var divStyleOpponent = {
+		  color: 'red',
+		  display: 'inline'
+	  };
+	  var divStyleYou = {
+		  color: '#00BB00',
+		  display: 'inline'
+	  };
+	  var curUserPos = store.getState().components.typingGame.userPos;
+      var curOpponentPos = store.getState().components.typingGame.opponentsPos;
+      if(curUserPos >= curOpponentPos) {
+      	return (<div>{firstpart}<div style={divStyleOpponent}>|</div>{secondpart}<div style={divStyleYou}>|</div>{thirdpart}</div>);
+      } else {
+      	return (<div>{firstpart}<div style={divStyleYou}>|</div>{secondpart}<div style={divStyleOpponent}>|</div>{thirdpart}</div>);
+      }
     }
   });
 
@@ -83,6 +124,7 @@ var defaultState = {
     // },
     keyPress: function(event){
       var curTypingText = this.state.typingText;
+
       var curTypingPos = store.getState().components.typingGame.userPos;
       if (String.fromCharCode(event.which)===curTypingText[curTypingPos]){
         store.dispatch(updateUserPos(curTypingPos+1));
